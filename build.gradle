@@ -1,0 +1,70 @@
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                   'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+providedCompile 'javax:javaee-api:7.+'
+providedCompile 'com.sun.jersey:jersey-server:1.+'
+providedCompile 'com.sun.jersey:jersey-core:1.+'
+providedCompile 'com.sun.jersey:jersey-servlet:1.+'
+providedCompile 'javax.servlet:jstl:1.+'
+providedCompile 'javax.servlet:javax.servlet-api:3.+'
+providedCompile 'javax.servlet.jsp:javax.servlet.jsp-api:2.+'
+
+//commons-dbcp2
+compile 'org.apache.commons:commons-dbcp2:2.+'
+
+//MySQL
+compile 'mysql:mysql-connector-java:5.+'
+
+//Spring Framework
+
+compile 'org.springframework:spring-context:4.+'
+compile 'org.springframework:spring-context-support:4.+'
+compile 'org.springframework:spring-webmvc:4.+'
+compile 'org.springframework:spring-orm:4.+'
+
+//Hibernate
+compile 'org.hibernate:hibernate-core:5.+'
+
+//taglibs
+compile 'taglibs:standard:1.+'
+	
+//Log4j
+compile 'log4j:log4j:1.+'
+
+//Zxing
+compile 'com.google.zxing:core:3.+'
+
+//Gson
+compile 'com.google.code.gson:gson:2.+'
+}
+
+eclipse {
+    wtp {
+        facet {
+            facet name: "java", version: "1.8"          // Java version
+            facet name: "jst.web", version: "3.1"       // Dynamic Web Application
+        	facet name: "jst.jaxrs", version: "2.0"
+        	
+        }
+    }
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
