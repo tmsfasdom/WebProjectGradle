@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.com.tmsfasdom.modelo.Televisao;
 import br.com.tmsfasdom.modelo.Usuario;
 import br.com.tmsfasdom.services.UsuarioService;
 
@@ -33,3 +34,4 @@ public class loginController {
 		return "redirect:login";
 	}
 }
+

@@ -16,6 +16,7 @@ public class Student implements Serializable{
 	/**
 	 * 
 	 */
+	public static final String tableName = "Student";
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column

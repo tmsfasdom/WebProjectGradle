@@ -15,6 +15,8 @@ public class Usuario implements Serializable{
 	/**
 	 * 
 	 */
+	public static final String tableName = "Usuario";
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column

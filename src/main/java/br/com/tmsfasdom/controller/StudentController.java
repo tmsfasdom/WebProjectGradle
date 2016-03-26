@@ -31,11 +31,11 @@ public class StudentController {
 		Student studentResult = new Student();
 		switch(action.toLowerCase()){	//only in Java7 you can put String in switch
 		case "add":
-			studentService.saveOrUpdate(student);
+			studentService.save(student);
 			studentResult = student;
 			break;
 		case "edit":
-			studentService.saveOrUpdate(student);
+			studentService.update(student);
 			studentResult = student;
 			break;
 		case "delete":

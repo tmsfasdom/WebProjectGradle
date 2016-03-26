@@ -6,19 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.tmsfasdom.dao.UsuarioDao;
+import br.com.tmsfasdom.dao.AbstractDao;
+import br.com.tmsfasdom.dao.impl.UsuarioDaoImpl;
 import br.com.tmsfasdom.modelo.Usuario;
 import br.com.tmsfasdom.services.UsuarioService;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
+	private AbstractDao<Usuario> usuarioDao;
+
 	@Autowired
-	private UsuarioDao usuarioDao;
-	
+	public UsuarioServiceImpl(UsuarioDaoImpl usuarioDao) {
+		this.usuarioDao = usuarioDao;
+	}
+
 	@Transactional
-	public void saveOrUpdate(Usuario usuario) {
-		usuarioDao.saveOrUpdate(usuario);	
+	public void save(Usuario usuario) {
+		usuarioDao.save(usuario);
+	}
+
+	@Transactional
+	public void update(Usuario usuario) {
+		usuarioDao.update(usuario);
 	}
 
 	@Transactional
@@ -28,25 +38,22 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Transactional
 	public Usuario getUsuario(int userId) {
-		return usuarioDao.getUsuario(userId);
+		return usuarioDao.getEntity(userId);
 	}
 
 	@Transactional
 	public List<Usuario> getAllUsuario() {
-		return usuarioDao.getAllUsuario();
+		return usuarioDao.getAll();
 	}
 
-	@Transactional
 	public boolean verificaUsuario(Usuario user) {
-		List<Usuario> listaUsuarios = usuarioDao.getAllUsuario();
-		for(Usuario usr : listaUsuarios)
-		{
-			if (usr.getUserName().equalsIgnoreCase(user.getUserName()) && 
-					usr.getPassword().contentEquals(user.getPassword()))
-			{
+		List<Usuario> listaUsuarios = usuarioDao.getAll();
+		for (Usuario usr : listaUsuarios) {
+			if (usr.getUserName().equalsIgnoreCase(user.getUserName())
+					&& usr.getPassword().contentEquals(user.getPassword())) {
 				return true;
 			}
-		}		
+		}
 		return false;
 	}
 
