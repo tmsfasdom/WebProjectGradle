@@ -11,5 +11,5 @@ public class StudentDaoImpl extends AbstractDao<Student> {
 	public StudentDaoImpl() {
 		super(Student.class, Student.tableName);
 	}
-
+	
 }

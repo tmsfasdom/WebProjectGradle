@@ -10,6 +10,9 @@ import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -20,7 +23,8 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 public class Hello {
 	
 	public String sayHello(String str) {
-		
+		Logger logger = LogManager.getLogger(Hello.class);
+		logger.info("Chamada sayHello da classe Hello.");
 			return gerarComZXing(str);
 	}
 

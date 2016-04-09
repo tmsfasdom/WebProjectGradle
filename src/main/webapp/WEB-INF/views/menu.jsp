@@ -8,6 +8,6 @@
 </head>
 <body>
 <p>Logou com sucesso!!!</p>
-<p>Bem vindo, ${usuarioLogado.userName}</p>
+<p>Bem vindo, </p>
 </body>
 </html>

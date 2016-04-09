@@ -2,11 +2,11 @@ package br.com.tmsfasdom.services.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.tmsfasdom.dao.AbstractDao;
 import br.com.tmsfasdom.dao.impl.UsuarioDaoImpl;
 import br.com.tmsfasdom.modelo.Usuario;
 import br.com.tmsfasdom.services.UsuarioService;
@@ -14,12 +14,13 @@ import br.com.tmsfasdom.services.UsuarioService;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-	private AbstractDao<Usuario> usuarioDao;
+	@Resource
+	private UsuarioDaoImpl usuarioDao;
 
-	@Autowired
-	public UsuarioServiceImpl(UsuarioDaoImpl usuarioDao) {
-		this.usuarioDao = usuarioDao;
-	}
+	//@Autowired
+	///public UsuarioServiceImpl(UsuarioDaoImpl usuarioDao) {
+	//	this.usuarioDao = usuarioDao;
+	//}
 
 	@Transactional
 	public void save(Usuario usuario) {
