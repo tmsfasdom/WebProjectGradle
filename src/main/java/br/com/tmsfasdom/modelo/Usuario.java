@@ -10,6 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,6 +31,7 @@ public class Usuario implements Serializable{
 	@Column
 	private String password;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name="USUARIO_HAS_ROLES", joinColumns={@JoinColumn(name="userId", referencedColumnName="userId")}, inverseJoinColumns={@JoinColumn(name="roleId", referencedColumnName="roleId")})
 	private List<Role> roles;
 	
 	

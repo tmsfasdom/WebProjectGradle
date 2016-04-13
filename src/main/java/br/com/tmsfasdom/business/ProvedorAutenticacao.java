@@ -1,6 +1,10 @@
 package br.com.tmsfasdom.business;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -9,8 +13,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.security.core.userdetails.User;
 
+import br.com.tmsfasdom.modelo.Role;
 import br.com.tmsfasdom.modelo.Usuario;
 import br.com.tmsfasdom.services.UsuarioService;
 
@@ -34,13 +41,18 @@ public class ProvedorAutenticacao implements AuthenticationProvider {
 			throw new BadCredentialsException("Wrong password.");
 		}
 
-		Collection<? extends GrantedAuthority> authorities = user.getRoles();
+		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 
-		return new UsernamePasswordAuthenticationToken(user, password, authorities);
+		List<Role> listRoles = user.getRoles();
+		for (Role r : listRoles) {
+			authorities.add(new SimpleGrantedAuthority(r.getName()));
+		}
+		User us = new User(user.getUserName(), user.getPassword(), authorities);
+		return new UsernamePasswordAuthenticationToken(us, password, authorities);
 	}
 
-	public boolean supports(Class<?> arg0) {
-		return true;
+	public boolean supports(Class<?> authentication) {
+		return authentication.equals(UsernamePasswordAuthenticationToken.class);
 	}
 
 }

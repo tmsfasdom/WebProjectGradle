@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import br.com.tmsfasdom.dao.impl.ProcessoDaoImpl;
+import br.com.tmsfasdom.dao.impl.UsuarioDaoImpl;
 import br.com.tmsfasdom.modelo.Chaves;
 import br.com.tmsfasdom.modelo.Processo;
+import br.com.tmsfasdom.modelo.Role;
 //import br.com.tmsfasdom.dao.impl.ProcessoDaoImpl;
 //import br.com.tmsfasdom.modelo.Chaves;
 //import br.com.tmsfasdom.modelo.Processo;
 import br.com.tmsfasdom.modelo.Student;
+import br.com.tmsfasdom.modelo.Usuario;
 import br.com.tmsfasdom.modelo.Valores;
 
 @RestController
@@ -27,13 +30,24 @@ public class ServiceREST {
 	@Autowired
 	private StudentService studentService;
 	@Autowired
-	ProcessoDaoImpl prdao;
+	private ProcessoDaoImpl prdao;
+	@Autowired
+	private UsuarioDaoImpl userdao;
 	
 	
 	
 	@RequestMapping(value = "/sayhello", method = RequestMethod.GET)
 	@Transactional
 	public String sayHello() {
+				
+		Gson gson = new Gson();
+		return gson.toJson("Fernando Lindo");
+	}
+	
+	
+	@RequestMapping(value = "/criaProcesso", method = RequestMethod.GET)
+	@Transactional
+	public String criaProcesso() {
 		
 		Chaves ch = new Chaves("Nome", "Aberta");
 		Processo pr = new Processo(1,"testeProcesso", "teste");
@@ -50,9 +64,24 @@ public class ServiceREST {
 		prdao.save(pr);
 		
 		Gson gson = new Gson();
-		return gson.toJson("Fernando Lindo");
+		return gson.toJson("Um processo com Chave e valores criado com sucesso");
 	}
-
+	
+	@RequestMapping(value = "/criaUsuarioAdmin", method = RequestMethod.GET)
+	@Transactional
+	public String criaUsuarioAdmin() {
+		
+		Usuario user = new Usuario();
+		user.setUserName("usuario");
+		user.setPassword("usuario");
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(new Role("ADMIN"));
+		user.setRoles(roles);
+		userdao.save(user);
+		
+		Gson gson = new Gson();
+		return gson.toJson("Usuario admin criado com sucesso");
+	}
 	@RequestMapping(value = "/somar", method = RequestMethod.GET)
 	public String somar() {
 		Student stud = studentService.getStudent(28);
