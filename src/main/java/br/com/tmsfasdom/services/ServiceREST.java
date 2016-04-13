@@ -1,5 +1,8 @@
 package br.com.tmsfasdom.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,11 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import br.com.tmsfasdom.dao.impl.ProcessoDaoImpl;
+import br.com.tmsfasdom.modelo.Chaves;
+import br.com.tmsfasdom.modelo.Processo;
 //import br.com.tmsfasdom.dao.impl.ProcessoDaoImpl;
 //import br.com.tmsfasdom.modelo.Chaves;
 //import br.com.tmsfasdom.modelo.Processo;
 import br.com.tmsfasdom.modelo.Student;
-//import br.com.tmsfasdom.modelo.Valores;
+import br.com.tmsfasdom.modelo.Valores;
 
 @RestController
 @RequestMapping("/rest/")
@@ -20,8 +26,8 @@ public class ServiceREST {
 
 	@Autowired
 	private StudentService studentService;
-	//@Autowired
-	///ProcessoDaoImpl prdao;
+	@Autowired
+	ProcessoDaoImpl prdao;
 	
 	
 	
@@ -29,7 +35,7 @@ public class ServiceREST {
 	@Transactional
 	public String sayHello() {
 		
-		/*Chaves ch = new Chaves("Nome", "Aberta");
+		Chaves ch = new Chaves("Nome", "Aberta");
 		Processo pr = new Processo(1,"testeProcesso", "teste");
 		List<Valores> valores = new ArrayList<Valores>();
 		Valores vl1 = new Valores("Fernando");
@@ -42,7 +48,7 @@ public class ServiceREST {
 		valores.add(vl2);
 		pr.setValores(valores);
 		prdao.save(pr);
-		*/
+		
 		Gson gson = new Gson();
 		return gson.toJson("Fernando Lindo");
 	}

@@ -28,6 +28,10 @@ public class Role implements GrantedAuthority {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Usuario usuario;
 
+	public Role() {
+	}
+
+	
 	public Role(String name) {
 		super();
 		this.name = name;

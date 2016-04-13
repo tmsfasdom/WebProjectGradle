@@ -20,7 +20,7 @@ public class UsuarioDaoImpl extends AbstractDao<Usuario> {
 	public Usuario RecuperaUsuarioPorLogin(String login)
 	{
 		EntityManager em = getEntityManager();
-		Query query = em.createQuery("SELECT e FROM " + Usuario.tableName + " e where e.userName = " + login);
+		Query query = em.createQuery("SELECT e FROM " + Usuario.tableName + " e where e.userName = '" + login + "'");
 		@SuppressWarnings("unchecked")
 		List<Usuario> lista = (List<Usuario>)query.getResultList();
 		if(lista.size() == 1)

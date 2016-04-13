@@ -1,4 +1,4 @@
-/*package br.com.tmsfasdom.dao.impl;
+package br.com.tmsfasdom.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +13,4 @@ public class ProcessoDaoImpl extends AbstractDao<Processo> {
 	}
 	
 }
-*/
+
