@@ -2,8 +2,7 @@ package br.com.tmsfasdom.services.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,7 @@ import br.com.tmsfasdom.services.UsuarioService;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-	@Resource
+	@Autowired
 	private UsuarioDaoImpl usuarioDao;
 
 	//@Autowired
@@ -56,6 +55,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Usuario recuperaUsuarioPorLogin(String login) {
+		return usuarioDao.RecuperaUsuarioPorLogin(login);
 	}
 
 }

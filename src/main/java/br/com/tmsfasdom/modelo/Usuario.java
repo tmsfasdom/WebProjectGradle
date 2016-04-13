@@ -1,32 +1,48 @@
 package br.com.tmsfasdom.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Usuario")
 public class Usuario implements Serializable{
-	/**
-	 * 
-	 */
+	
 	public static final String tableName = "Usuario";
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@Column
-	@GeneratedValue(strategy=GenerationType.IDENTITY) //for autonumber
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int userId;
 	@Column
 	private String userName;
 	@Column
 	private String password;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Role> roles;
 	
+	
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+
 	public Usuario() {}
 	
 
@@ -56,7 +72,5 @@ public class Usuario implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-
 	
 }

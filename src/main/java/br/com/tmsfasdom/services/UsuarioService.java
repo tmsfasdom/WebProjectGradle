@@ -11,4 +11,5 @@ public interface UsuarioService {
 	public Usuario getUsuario(int userId);
 	public List<Usuario> getAllUsuario();
 	boolean verificaUsuario(Usuario user);
+	public Usuario recuperaUsuarioPorLogin(String login);
 }

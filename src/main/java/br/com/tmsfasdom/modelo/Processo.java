@@ -1,4 +1,4 @@
-package br.com.tmsfasdom.modelo;
+/*package br.com.tmsfasdom.modelo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,9 +15,6 @@ import javax.persistence.Table;
 @Table(name = "Processo")
 public class Processo implements Serializable {
 
-	/**
-	 * 
-	 */
 	public static final String tableName = "Processo";
 	private static final long serialVersionUID = 1L;
 
@@ -72,3 +69,4 @@ public class Processo implements Serializable {
 	private List<Valores> valores;
 
 }
+*/

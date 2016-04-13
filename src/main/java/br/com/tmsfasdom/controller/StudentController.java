@@ -2,8 +2,7 @@ package br.com.tmsfasdom.controller;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +16,7 @@ import br.com.tmsfasdom.services.StudentService;
 @Controller
 public class StudentController {
 	
-	@Resource
+	@Autowired
 	private StudentService studentService;
 	
 	@RequestMapping("/index")
