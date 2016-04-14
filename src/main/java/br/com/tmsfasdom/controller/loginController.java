@@ -1,9 +1,14 @@
 package br.com.tmsfasdom.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -19,7 +24,15 @@ public class loginController {
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
     public String homePage(ModelMap model) {
-        model.addAttribute("greeting", "Hi, Welcome to mysite. ");
+		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		model.addAttribute("greeting", "Hi, Welcome to mysite. ");
+        List<String> strlst = new ArrayList<String>();
+		for(SimpleGrantedAuthority s: authorities)
+        {
+        	strlst.add(s.getAuthority());
+        }
+		model.addAttribute("listAuth", strlst);
+        
         return "welcome";
     }
  

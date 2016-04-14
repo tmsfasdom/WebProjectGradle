@@ -1,7 +1,5 @@
 package br.com.tmsfasdom.business;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,8 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.stereotype.Component;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Component;
 
 import br.com.tmsfasdom.modelo.Role;
 import br.com.tmsfasdom.modelo.Usuario;

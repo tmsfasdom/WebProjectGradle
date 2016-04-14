@@ -75,7 +75,7 @@ public class ServiceREST {
 		user.setUserName("usuario");
 		user.setPassword("usuario");
 		List<Role> roles = new ArrayList<Role>();
-		roles.add(new Role("ADMIN"));
+		roles.add(new Role("ROLE_ADMIN"));
 		user.setRoles(roles);
 		userdao.save(user);
 		

@@ -25,17 +25,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authProvider);
-		//auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-		//auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-		//auth.inMemoryAuthentication().withUser("dba").password("dba").roles("ADMIN", "DBA");
+		auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
+		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+		auth.inMemoryAuthentication().withUser("dba").password("dba").roles("ADMIN", "DBA");
 	}
-
+ 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/rest/**").permitAll().antMatchers("/")
-				.access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')").antMatchers("/admin/**")
-				.access("hasRole('ADMIN')").antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')").and()
+		http
+			.authorizeRequests()
+				.antMatchers("/rest/**").permitAll()
+				.antMatchers("/home").permitAll()
+				.antMatchers("/").access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
+				.antMatchers("/admin/**").access("hasRole('ADMIN')")
+				.antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
+			.and()
 				.formLogin().and().exceptionHandling().accessDeniedPage("/Access_Denied");
 
 	}
