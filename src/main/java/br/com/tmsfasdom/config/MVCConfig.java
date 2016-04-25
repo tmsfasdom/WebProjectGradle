@@ -1,48 +1,62 @@
 package br.com.tmsfasdom.config;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.social.connect.web.thymeleaf.SpringSocialDialect;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
+
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "br.com.tmsfasdom")
 public class MVCConfig extends WebMvcConfigurerAdapter {
 
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations(
+				"/WEB-INF/resources/");
+	}
+
 	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views/");
-		viewResolver.setSuffix(".jsp");
+	public MessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("/WEB-INF/messages/messages");
+		return messageSource;
+	}
+
+	@Bean
+	public ViewResolver viewResolver(SpringTemplateEngine templateEngine) {
+		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+		viewResolver.setTemplateEngine(templateEngine);
 		return viewResolver;
 	}
 
- 
-	@Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-    }
+	@Bean
+	public SpringTemplateEngine templateEngine(TemplateResolver templateResolver) {
+		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		templateEngine.setTemplateResolver(templateResolver);
+		templateEngine.addDialect(new SpringSocialDialect());
+		templateEngine.addDialect(new LayoutDialect());
+		return templateEngine;
+	}
 
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
-
-    @Bean
-    public InternalResourceViewResolver jspViewResolver() {
-        InternalResourceViewResolver bean = new InternalResourceViewResolver();
-        bean.setPrefix("/WEB-INF/views/");
-        bean.setSuffix(".jsp");
-        return bean;
-    }
-	
+	@Bean
+	public TemplateResolver templateResolver() {
+		TemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+		templateResolver.setPrefix("/views/");
+		templateResolver.setSuffix(".html");
+		templateResolver.setTemplateMode("HTML5");
+		return templateResolver;
+	}	
 
 }

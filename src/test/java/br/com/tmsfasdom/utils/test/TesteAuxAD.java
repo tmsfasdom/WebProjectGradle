@@ -1,4 +1,4 @@
-package br.com.tmsfasdom.utils.test;
+/*package br.com.tmsfasdom.utils.test;
 
 import br.com.tmsfasdom.utils.AuxAD;
 import junit.framework.TestCase;
@@ -24,5 +24,6 @@ public class TesteAuxAD extends TestCase{
 	}
 	
 }
+*/
 
 
